@@ -24,7 +24,7 @@ class StorePicker extends React.Component {
     )
   }
 }
-
+// check console to konw the object
 StorePicker.contextTypes = {
   router: React.PropTypes.object
 }
