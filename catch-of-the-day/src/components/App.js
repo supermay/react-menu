@@ -26,7 +26,7 @@ class App extends React.Component {
     const timestamp = Date.now();
     fishes[`fish-${timestamp}`] = fish;
     // set State
-    this.setState({fishes: fishes})
+    this.setState({fishes})
   }
   // have to put this in the file where we put state
   loadSamples(){
@@ -39,7 +39,7 @@ class App extends React.Component {
     //copy of our state
     const order = {...this.state.order};
     //update or add the new numbers of fish ordered
-    // pay attention to this line either 1 or add 1 
+    // pay attention to this line either 1 or add 1
     order[key] = order[key] + 1 || 1;
     this.setState({ order: order })
   }
@@ -55,7 +55,7 @@ class App extends React.Component {
             {Object.keys(this.state.fishes).map(key => <Fish addToOrder={this.addToOrder} key={key} index={key} details={this.state.fishes[key]} />)}
           </ul>
         </div>
-        <Order />
+        <Order order={this.state.order} fishes={this.state.fishes} />
         <Inventory addFish={this.addFish} loadSamples={this.loadSamples} />
       </div>
     )

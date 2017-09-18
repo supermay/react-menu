@@ -3,6 +3,7 @@ import React from 'react';
 class AddFishForm extends React.Component {
   createFish(event){
     event.preventDefault();
+    debugger
     console.log('Gonna make some fish!')
     const fish = {
       // remember to get the value!!!***
