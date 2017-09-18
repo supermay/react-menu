@@ -22,18 +22,30 @@ class App extends React.Component {
 
   // don't sync the whole thing, only the store from the input you enter
   componentWillMount(){
+    // this runs right before the <App /> is rendered
     this.ref = base.syncState(`${this.props.params.storeId}/fishes`
       ,{
       context: this,
       state: 'fishes'
     });
+    // check if there is any order in localStorage
+    const localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`);
+    if(localStorageRef){
+      this.setState({
+        order: JSON.parse(localStorageRef)
+      })
+    }
   }
   // go to another store
   componentWillUnmount(){
     base.removeBinding(this.ref);
   }
 
-
+  // for things update => is different from loading data => this case for order
+  componentWillUpdate(nextProps, nextState){
+  localStorage.setItem(`order-${this.props.params.storeId}`,
+  JSON.stringify(nextState.order));
+  }
 
   addFish(fish){
     // update state => take a copy of your current state and update
@@ -71,7 +83,10 @@ class App extends React.Component {
             {Object.keys(this.state.fishes).map(key => <Fish addToOrder={this.addToOrder} key={key} index={key} details={this.state.fishes[key]} />)}
           </ul>
         </div>
-        <Order order={this.state.order} fishes={this.state.fishes} />
+        <Order
+          params = {this.props.params} 
+          order={this.state.order}
+          fishes={this.state.fishes} />
         <Inventory addFish={this.addFish} loadSamples={this.loadSamples} />
       </div>
     )
