@@ -12,6 +12,7 @@ class App extends React.Component {
     // initial state // getInitialState
     this.addFish = this.addFish.bind(this);
     this.updateFish = this.updateFish.bind(this);
+    this.removeFish = this.removeFish.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
 
@@ -57,6 +58,19 @@ class App extends React.Component {
     // set State
     this.setState({fishes})
   }
+
+  updateFish(key,updateFish){
+    const fishes = {...this.state.fishes}
+    fishes[key] = updateFish
+    this.setState ({fishes})
+  }
+
+  removeFish(key){
+    const fishes = {...this.state.fishes}
+    fishes[key] = null;
+    this.setState({fishes})
+  }
+
   // have to put this in the file where we put state
   loadSamples(){
     this.setState({
@@ -71,12 +85,6 @@ class App extends React.Component {
     // pay attention to this line either 1 or add 1
     order[key] = order[key] + 1 || 1;
     this.setState({ order })
-  }
-
-  updateFish(key,updateFish){
-    const fishes = {...this.state.fishes}
-    fishes[key] = updateFish
-    this.setState ({fishes})
   }
 
   render(){
@@ -99,6 +107,7 @@ class App extends React.Component {
           fishes={this.state.fishes}
           addFish={this.addFish}
           updateFish={this.updateFish}
+          removeFish={this.removeFish}
           loadSamples={this.loadSamples}
         />
       </div>
