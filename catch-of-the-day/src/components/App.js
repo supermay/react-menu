@@ -3,7 +3,8 @@ import Header from './Header';
 import Order from './Order';
 import Inventory from './Inventory';
 import sampleFishes from '../sample-fishes';
-import Fish from './Fish'
+import Fish from './Fish';
+import base from '../base';
 
 class App extends React.Component {
   constructor(){
@@ -18,6 +19,21 @@ class App extends React.Component {
       order: {}
     }
   }
+
+  // don't sync the whole thing, only the store from the input you enter
+  componentWillMount(){
+    this.ref = base.syncState(`${this.props.params.storeId}/fishes`
+      ,{
+      context: this,
+      state: 'fishes'
+    });
+  }
+  // go to another store
+  componentWillUnmount(){
+    base.removeBinding(this.ref);
+  }
+
+
 
   addFish(fish){
     // update state => take a copy of your current state and update
