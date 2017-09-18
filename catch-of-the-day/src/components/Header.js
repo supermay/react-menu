@@ -1,6 +1,10 @@
 import React from 'react';
 
 class Header extends React.Component {
+  static propTypes = {
+  tagline: React.PropTypes.string.isRequired
+  }
+
   render(){
     return (
       <header className="top">
@@ -16,8 +20,5 @@ class Header extends React.Component {
   }
 }
 
-Header.propTypes = {
-  tagline: React.PropTypes.string.isRequired
-}
 
 export default Header;

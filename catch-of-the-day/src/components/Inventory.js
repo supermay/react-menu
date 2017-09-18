@@ -2,9 +2,11 @@ import React from 'react';
 import AddFishForm from './AddFishForm';
 
 class Inventory extends React.Component {
-  constructor(){
-    super();
-    this.renderInventory = this.renderInventory.bind(this)
+  static propTypes = {
+  fishes: React.PropTypes.object.isRequired,
+  removeFish: React.PropTypes.func.isRequired,
+  addFish: React.PropTypes.func.isRequired,
+  loadSamples: React.PropTypes.func.isRequired
   }
 
   handleEvent(e,key){
@@ -18,7 +20,7 @@ class Inventory extends React.Component {
     this.props.updateFish(key,updatedFish);
   }
 
-  renderInventory(key){
+  renderInventory = (key) => {
     const fish = this.props.fishes[key];
     return (
       <div className="fish-edit" key={key}>
@@ -39,10 +41,10 @@ class Inventory extends React.Component {
         </textarea>
         <input value={fish.image} type="text" name="image" placeholder="Fish Image"
         onChange={(e) => this.handleEvent(e,key)}/>
-        <button onClick={() => this.props.removeFromOrder(key)}>Remove Fish</button>
+        <button onClick={() => this.props.removeFish(key)}>Remove Fish</button>
       </div>
     )
-  }
+  };
 
 
   render(){
@@ -57,11 +59,5 @@ class Inventory extends React.Component {
   }
 }
 
-Inventory.propTypes = {
-  fishes: React.PropTypes.object.isRequired,
-  removeFromOrder: React.PropTypes.func.isRequired,
-  addFish: React.PropTypes.func.isRequired,
-  loadSamples: React.PropTypes.func.isRequired
-}
 
 export default Inventory;

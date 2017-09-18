@@ -3,7 +3,6 @@ import { getFunName } from '../helpers'
 
 class StorePicker extends React.Component {
   goToStore(event){
-    debugger
     event.preventDefault();
     // prevent the auto refresh
     const storeId = this.storeInput.value

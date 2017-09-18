@@ -7,20 +7,13 @@ import Fish from './Fish';
 import base from '../base';
 
 class App extends React.Component {
-  constructor(){
-    super();
-    // initial state // getInitialState
-    this.addFish = this.addFish.bind(this);
-    this.updateFish = this.updateFish.bind(this);
-    this.removeFish = this.removeFish.bind(this);
-    this.loadSamples = this.loadSamples.bind(this);
-    this.addToOrder = this.addToOrder.bind(this);
-    this.removeFromOrder = this.removeFromOrder.bind(this);
+  static propTypes = {
+    params: React.PropTypes.object.isRequired
+  }
 
-    this.state = {
-      fishes: {},
-      order: {}
-    }
+  state = {
+    fishes: {},
+    order: {}
   }
 
   // don't sync the whole thing, only the store from the input you enter
@@ -50,7 +43,7 @@ class App extends React.Component {
   JSON.stringify(nextState.order));
   }
 
-  addFish(fish){
+  addFish = (fish) => {
     // update state => take a copy of your current state and update
     const fishes = {...this.state.fishes}
     // add in our new fish
@@ -58,42 +51,42 @@ class App extends React.Component {
     fishes[`fish-${timestamp}`] = fish;
     // set State
     this.setState({fishes})
-  }
+  };
 
-  updateFish(key,updateFish){
+  updateFish = (key,updateFish) => {
     const fishes = {...this.state.fishes}
     fishes[key] = updateFish
     this.setState ({fishes})
-  }
+  };
 
-  removeFish(key){
+  removeFish = (key) => {
     const fishes = {...this.state.fishes}
     // we don't use delete here, because of firebase
     fishes[key] = null;
     this.setState({fishes})
-  }
+  };
 
   // have to put this in the file where we put state
-  loadSamples(){
+  loadSamples = () => {
     this.setState({
       fishes: sampleFishes
     })
-  }
+  };
 
-  addToOrder(key){
+  addToOrder = (key) => {
     //copy of our state
     const order = {...this.state.order};
     //update or add the new numbers of fish ordered
     // pay attention to this line either 1 or add 1
     order[key] = order[key] + 1 || 1;
     this.setState({ order })
-  }
+  };
 
-  removeFromOrder(key){
+  removeFromOrder = (key) => {
     const order = {...this.state.order}
     delete order[key];
     this.setState({order})
-  }
+  };
 
   render(){
     return (
@@ -116,7 +109,7 @@ class App extends React.Component {
           fishes={this.state.fishes}
           addFish={this.addFish}
           updateFish={this.updateFish}
-          removeFromOrder={this.removeFromOrder}
+          removeFish={this.removeFish}
           loadSamples={this.loadSamples}
         />
       </div>
@@ -124,9 +117,6 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = {
-  params: React.PropTypes.object.isRequired
-}
 
 
 export default App;
