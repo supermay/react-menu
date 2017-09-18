@@ -10,10 +10,14 @@ class Header extends React.Component {
             <span className="the">the</span>
           </span>
           Day</h1>
-        <h3 className="tagline">{this.props.tagline}</h3>
+        <h3 className="tagline"><span>{this.props.tagline}</span></h3>
       </header>
     )
   }
+}
+
+Header.propTypes = {
+  tagline: React.PropTypes.string.isRequired
 }
 
 export default Header;
